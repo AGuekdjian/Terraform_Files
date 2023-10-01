@@ -1,10 +1,10 @@
 #!/bin/bash
 
 check_exit_code() {
-    if [ $? -e 0 ]; then
-    echo "$2\n" >> logs.txt
+    if [ $? -eq 0 ]; then
+    echo "$2" >> logs.txt && printf "\n" >> logs.txt
     elif [ $? -ne 0 ]; then
-    echo "Ah ocurrido un error: $1\n" >> logs.txt
+    echo "Ah ocurrido un error: $1" >> logs.txt && printf "\n" >> logs.txt
     exit 1
     fi
 }
