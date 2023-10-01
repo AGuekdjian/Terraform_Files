@@ -7,7 +7,11 @@ resource "aws_instance" "instance_linux" {
     Name     = var.ec2_tag_name
     Ambiente = var.ec2_tag_ambiente
   }
-  user_data = "${file("toolsForInstance.sh")}"
+  user_data = file("toolsForInstance.sh")
+}
+
+output "URL" {
+  value = "http://${aws_instance.instance_linux.public_id}:8080"
 }
 
 resource "aws_security_group" "security_group_terraform" {
@@ -20,11 +24,11 @@ resource "aws_security_group" "security_group_terraform" {
     protocol    = "tcp"
   }
 
-  egress {
+  ingress {
     cidr_blocks = ["0.0.0.0/0"]
     description = "Web Server"
-    from_port   = 8000
-    to_port     = 8000
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
   }
 
@@ -48,7 +52,6 @@ resource "aws_security_group" "security_group_terraform" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    description = "Allow All"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
