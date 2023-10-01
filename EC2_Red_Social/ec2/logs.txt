@@ -1,2 +1,0 @@
-Ah ocurrido un error: Error al crear directorio app
-
