@@ -7,20 +7,7 @@ resource "aws_instance" "instance_linux" {
     Name     = var.ec2_tag_name
     Ambiente = var.ec2_tag_ambiente
   }
-
-  user_data = <<-EOF
-  #!/bin/bash
-  sudo apt update && sudo apt upgrade -y && \
-  mkdir app && \
-  sudo apt install git -y && \
-  cd app/ && git clone https://github.com/AGuekdjian/Red-Social.git && cd .. && \
-  git clone https://github.com/AGuekdjian/Scripts.git && \
-  mv ./Scripts/installDocker.sh . && \
-  rm -rf ./Scripts && \
-  ./installDocker.sh && \
-  cd app/Red-Social && ./Docker.sh && \
-  sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
-  EOF
+  user_data = "${file("toolsForInstance.sh")}"
 }
 
 resource "aws_security_group" "security_group_terraform" {
@@ -64,6 +51,4 @@ resource "aws_security_group" "security_group_terraform" {
     description = "Allow All"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-
 }
