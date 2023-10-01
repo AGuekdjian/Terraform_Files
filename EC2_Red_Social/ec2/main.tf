@@ -11,7 +11,7 @@ resource "aws_instance" "instance_linux" {
 }
 
 output "URL" {
-  value = "http://${aws_instance.instance_linux.public_id}:8080"
+  value = "http://${aws_instance.instance_linux.public_ip}:8080"
 }
 
 resource "aws_security_group" "security_group_terraform" {

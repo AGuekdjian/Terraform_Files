@@ -27,5 +27,5 @@ check_exit_code "Fallo la instalacion de Docker" "instalando Docker y eliminando
 cd app/Red-Social && ./Docker.sh
 check_exit_code "Error al levantar docker compose" "Levantando docker compose, ejecutando aplicacion"
 
-sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
-check_exit_code "Error al intentar redireccionar puertos" "Redireccionando al puerto 8000"
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+check_exit_code "Error al intentar redireccionar puertos" "Redireccionando al puerto 8080"
